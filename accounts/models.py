@@ -28,6 +28,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
+    def full_name(self):
+        return self.first_name + ' ' + self.last_name
+
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
