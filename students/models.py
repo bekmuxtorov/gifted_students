@@ -104,7 +104,7 @@ class Win(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.student + ' || ' + self.name[:50]
+        return self.student.base_student.first_name + ' || ' + self.name[:50]
 
     class Meta:
         verbose_name = 'Yutuq'
