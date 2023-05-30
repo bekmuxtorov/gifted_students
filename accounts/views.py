@@ -5,6 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 from . import serializers
 
@@ -32,13 +34,49 @@ class UserLoginApiView(APIView):
 class RegisterAPIView(APIView):
     serializer_class = serializers.UserRegisterSerializer
 
+    @swagger_auto_schema(
+        operation_description="Registration user",
+        request_body=openapi.Schema(
+            required=['first_name', 'last_name',
+                      'email', 'password', 'password2'],
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'first_name': openapi.Schema(type=openapi.TYPE_STRING, description="First name"),
+                'last_name': openapi.Schema(type=openapi.TYPE_STRING, description="Last name"),
+                'email': openapi.Schema(type=openapi.TYPE_STRING, description="Email"),
+                'password': openapi.Schema(type=openapi.TYPE_STRING, description='Password'),
+                'password2': openapi.Schema(type=openapi.TYPE_STRING, description='Password'),
+            }
+        ),
+        responses={
+            200: openapi.Response(
+                description="User registration",
+                examples={
+                    'application/json': {
+                            'id': 11,
+                            'first_name': 'Palonchi',
+                            'last_name': 'Palonchiyev',
+                            'email': 'palonchi@gmail.com',
+                            "password": "oylaizlatop",
+                            "password2": "oylaizlatop"
+                    }
+                }
+            ),
+            400: openapi.Response(
+                description="Bad request",
+                examples={
+                    'application/json': {
+                            'error': 'Invalid credentials'
+                    }
+                }
+            )
+        }
+    )
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-
             refresh = RefreshToken.for_user(user)
-
             response_data = {
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
