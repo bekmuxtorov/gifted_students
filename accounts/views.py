@@ -3,10 +3,11 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework_simplejwt.tokens import RefreshToken
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from django.contrib.auth import get_user_model
 
 from . import serializers
 
@@ -85,3 +86,8 @@ class RegisterAPIView(APIView):
 
             return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CustomUserDetailAPIView(generics.RetrieveAPIView):
+    queryset = get_user_model()
+    serializer_class = serializers.UserRegisterSerializer
