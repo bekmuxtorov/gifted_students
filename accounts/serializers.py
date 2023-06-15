@@ -9,7 +9,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['first_name', 'last_name', 'email', 'password', 'password2']
+        fields = ['id', 'first_name', 'last_name',
+                  'email', 'password', 'password2']
         extra_kwargs = {
             'password': {'write_only': True},
             'password2': {'write_only': True},
@@ -23,7 +24,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         password2 = validated_data.get('password2')
 
         if password == password2:
-            user = CustomUser(first_name=first_name, last_name=last_name, email=email)
+            user = CustomUser(first_name=first_name,
+                              last_name=last_name, email=email)
             user.set_password(password)
             user.save()
             return user
