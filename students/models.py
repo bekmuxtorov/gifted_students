@@ -31,7 +31,7 @@ class SubFaculty(models.Model):
 
 
 class Student(models.Model):
-    base_student = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
+    base_student = models.OneToOneField(to=CustomUser, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='students/image', blank=True)
     faculty = models.ForeignKey(
         to=Faculty,
