@@ -26,6 +26,7 @@ urlpatterns = [
          cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc',
          cache_timeout=0), name='schema-redoc'),
+    path("accounts/", include("django.contrib.auth.urls")),
 
     path('api/', include('accounts.urls')),
     path('api/', include('students.urls')),
