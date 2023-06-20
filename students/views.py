@@ -1,3 +1,5 @@
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -105,7 +107,6 @@ class ArticleDeleteAPIView(generics.DestroyAPIView):
 
 # ************************************************************************************************ #
 
-
 # Win Create API View
 class WinCreateAPIView(generics.CreateAPIView):
     queryset = models.Win.objects.all()
@@ -137,7 +138,47 @@ class WinDeleteAPIView(generics.DestroyAPIView):
     serializer_class = serializers.WinSerializer
 
 
-@api_view(['GET',])
+@api_view(['GET'])
+@swagger_auto_schema(
+    operation_description="Login user",
+    request_body=openapi.Schema(
+        required=['id'],
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'id': openapi.Schema(type=openapi.TYPE_INTEGER, description='CustomUser ID'),
+        }
+    ),
+    responses={
+        200: openapi.Response(
+            description="Get student by CustomUser ID",
+            examples={
+                'application/json': {
+                    "image": "null",
+                    "group": "20.07",
+                    "course": "1",
+                    "passport_number": "AB1234567",
+                    "idcart_number": "AD1234567",
+                    "passport_or_idcart_file": "null",
+                    "status": "false",
+                    "region": "Farg'ona",
+                    "district": "Quva",
+                    "street": "Topvoldi",
+                    "resume": "null",
+                    "base_student": "12",
+                    "sub_faculty": "null"
+                }
+            }
+        ),
+        400: openapi.Response(
+            description="Bad request",
+            examples={
+                'application/json': {
+                        'error': 'Invalid credentials'
+                }
+            }
+        )
+    }
+)
 def get_student_by_base(request, pk):
     try:
         student = models.Student.objects.get(base_student__id=pk)
