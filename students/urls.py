@@ -17,6 +17,9 @@ urlpatterns = [
     path('students/<int:pk>/', views.StudentDetailAPIView.as_view()),
     path('students/<int:pk>/update/', views.StudentUpdateAPIView.as_view()),
 
+    # Get Student by CustomUser
+    path('students/by_customuser/<int:pk>/', views.get_student_by_base),
+
     # Articles
     path('articles/create/', views.ArticleCreateAPIView.as_view()),
     path('articles/', views.ArticleListAPIView.as_view()),

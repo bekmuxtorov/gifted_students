@@ -1,6 +1,8 @@
-from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
+from accounts.models import CustomUser
 from . import models
 from . import serializers
 
@@ -133,3 +135,13 @@ class WinUpdateAPIView(generics.UpdateAPIView):
 class WinDeleteAPIView(generics.DestroyAPIView):
     queryset = models.Win.objects.all()
     serializer_class = serializers.WinSerializer
+
+
+@api_view(['GET',])
+def get_student_by_base(request, pk):
+    try:
+        student = models.Student.objects.get(base_student__id=pk)
+    except:
+        return Response({"detail": "The associated student object does not exist"}, status=status.HTTP_404_NOT_FOUND)
+    serializer = serializers.StudentSerializer(student)
+    return Response(serializer.data, status=status.HTTP_200_OK)
