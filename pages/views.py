@@ -23,12 +23,14 @@ def GrantDetailView(request, pk):
 
 
 def StudentListView(request, grant_id=None):
-    if grant_id:
-        permitted = grants_models.ScienceDirection.objects.filter(
-            grant=grant_id)
-        print(permitted)
-        students = student_moduls.Student.objects.filter()
+    print('#'*10)
+    print(grant_id)
+    if grant_id != 0:
+        sc_items = grants_models.ScienceDirection.objects.filter(
+            grant=grants_models.Grant.objects.last()).all()
+        return render(request, 'grant_student_list.html', {'sc_items': sc_items})
     students = student_moduls.Student.objects.all()
+    print("et biyaq ishlab ketdi")
     context = {'students': students}
     return render(request, 'grant_student_list.html', context)
 

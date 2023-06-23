@@ -22,7 +22,7 @@
                                 <th>#</th>
                                 <th>FISH</th>
                                 <th>Fakulteti</th>
-                                <th>Kursi/Guruhi</th>
+                                <th>Kursi || Guruhi</th>
                                 <th>Telefon raqam</th>
                                 <th>Topshirgan vaqti</th>
                                 <th>Batafsil</th>
@@ -33,23 +33,39 @@
                                 <th>#</th>
                                 <th>FISH</th>
                                 <th>Fakulteti</th>
-                                <th>Kursi/Guruhi</th>
+                                <th>Kursi || Guruhi</th>
                                 <th>Telefon raqam</th>
                                 <th>Topshirgan vaqti</th>
                                 <th>Batafsil</th>
                             </tr>
                         </tfoot>
                         <tbody>
+                            {% if sc_items %}
+                            {% for sc_item in sc_items %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{sc_item.student.get_full_name.title}}</td>
+                                <td>{{sc_item.student.faculty}}</td>
+                                <td>{{sc_item.student.course}} || {{sc_item.student.group}}</td>
+                                <td>{{sc_item.student.phone_number}}</td>
+                                <td>{{sc_item.student.create_at}}</td>
+                                <td><a href="{% url 'student_detail' pk=sc_item.student.id %}">Ko'rish</a></td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
                             {% for student in students %}
                             <tr>
-                                <td>{{ forloop.counter }}</td>
+                                <td>{{forloop.counter}}</td>
                                 <td>{{student.get_full_name.title}}</td>
-                                <td>{{student.course}}/{{student.group}}</td>
+                                <td>{{student.faculty}}</td>
+                                <td>{{student.course}} || {{student.group}}</td>
                                 <td>{{student.phone_number}}</td>
-                                <td>{{grant.create_at}}</td>
+                                <td>{{student.create_at}}</td>
                                 <td><a href="{% url 'student_detail' pk=student.pk %}">Ko'rish</a></td>
                             </tr>
                             {% endfor %}
+                            {% endif %}
+
 
 
                         </tbody>

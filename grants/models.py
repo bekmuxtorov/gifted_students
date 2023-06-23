@@ -84,6 +84,7 @@ class Result(models.Model):
         'Ikkinchi fan', blank=True, null=True)
     third_science_grade = models.IntegerField(
         'Uchinchi fan', blank=True, null=True)
+    
     create_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

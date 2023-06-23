@@ -11,9 +11,7 @@
                         <h5 class="card-header">{{student.get_full_name}}</h5>
                         <p class="text-muted ms-4 mb-0">{{student.get_full_name}} haqida batafsil ma'lumot</p>
                     </div>
-                    <!-- <div style="margin-right: 50px;">
-                        <a href="{% url 'students' %}" class="btn btn-primary" style="color: #fff;">Talabalar</a>
-                    </div> -->
+
                 </div>
                 <div class="card-body">
 
@@ -59,19 +57,34 @@
                                 <tr>
                                     <th scope="row">3</th>
                                     <td><strong>Passport yoki ID fayli</strong></td>
+                                    {% if student.passport_or_idcart_file %}
                                     <td><a
                                             href="{{student.passport_or_idcart_file.url}}">{{student.passport_or_idcart_file.name}}</a>
                                     </td>
+                                    {% else %}
+                                    <td>
+                                        Yuklanmagan
+                                    </td>
+                                    {% endif %}
+
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
                                     <td><strong>Resume(Obyektivka)</strong></td>
-                                    <td><a href="{{student.resume.url}}">{{student.resume.name}}</a></td>
+                                    {% if student.resume %}
+                                    <td><a href="{{student.resume}}">{{student.resume.name}}</a></td>
+                                    {% else %}
+                                    <td>Yuklanmagan</td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
                                     <td><strong>Baholar daftarchasi</strong></td>
+                                    {% if student.grade_book %}
                                     <td><a href="{{student.grade_book.url}}">{{student.grade_book.name}}</a></td>
+                                    {% else %}
+                                    <td>Yuklanmagan</td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <th scope="row">4</th>
