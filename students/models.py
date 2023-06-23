@@ -4,11 +4,10 @@ from accounts.models import CustomUser
 
 # Create your models here.
 
-PRINTED = [
+PRINTED = (
     ('local', 'Mahalliy jurnalda'),
     ('foreign', 'Xalqaro jurnalda'),
-
-]
+)
 
 
 class Faculty(models.Model):
@@ -62,6 +61,8 @@ class Student(models.Model):
     idcart_number = models.CharField(max_length=16, blank=True)
     passport_or_idcart_file = models.FileField(
         upload_to='students/', blank=True)
+    phone_number = models.CharField(
+        max_length=15, verbose_name="Telefon raqam", blank=True)
     status = models.BooleanField(default=False)
     region = models.CharField(max_length=50)
     district = models.CharField(max_length=50)

@@ -20,6 +20,9 @@ class Grant(models.Model):
         verbose_name = 'Tanlov'
         verbose_name_plural = '2. Tanlovlar'
 
+    def get_student_count(self):
+        return 13
+
     def __str__(self):
         return self.name
 
@@ -52,7 +55,7 @@ class ScienceDirection(models.Model):
         verbose_name_plural = '1. Ilmiy yo\'nalishlar'
 
     def __str__(self):
-        return f'{self.student.name} - {self.grant.name}'
+        return f'{self.student.get_full_name} - {self.grant.name}'
 
 
 class Result(models.Model):

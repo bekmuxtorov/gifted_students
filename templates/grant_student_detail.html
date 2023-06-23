@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="card mb-4">
+            <div id="results" class="col-lg-12 col-md-12 order-1">
+                <div style="display: flex; align-items: center;justify-content: space-between;">
+                    <div>
+                        <h5 class="card-header">{{student.get_full_name}}</h5>
+                        <p class="text-muted ms-4 mb-0">{{student.get_full_name}} haqida batafsil ma'lumot</p>
+                    </div>
+                    <!-- <div style="margin-right: 50px;">
+                        <a href="{% url 'students' %}" class="btn btn-primary" style="color: #fff;">Talabalar</a>
+                    </div> -->
+                </div>
+                <div class="card-body">
+
+                    <div>
+                        <h5 class="card-header align-center text-center">Umumiy ma'lumotlar</h5>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td><strong>FISH</strong></td>
+                                    <td>{{student.get_full_name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td><strong>Teleon raqam</strong></td>
+                                    <td>{{student.phone_number}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td><strong>Fakultet</strong></td>
+                                    <td>{{student.faculty}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td><strong>Yo'nalish</strong></td>
+                                    <td>{{student.sub_faculty}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td><strong>Guruh</strong></td>
+                                    <td>{{student.group}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td><strong>Kurs</strong></td>
+                                    <td>{{student.course}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td><strong>Passport yoki ID raqam</strong></td>
+                                    <td>{{student.passport_number}}{{student.idcart_number}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td><strong>Passport yoki ID fayli</strong></td>
+                                    <td><a
+                                            href="{{student.passport_or_idcart_file.url}}">{{student.passport_or_idcart_file.name}}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td><strong>Resume(Obyektivka)</strong></td>
+                                    <td><a href="{{student.resume.url}}">{{student.resume.name}}</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td><strong>Baholar daftarchasi</strong></td>
+                                    <td><a href="{{student.grade_book.url}}">{{student.grade_book.name}}</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td><strong>Viloyat</strong></td>
+                                    <td>{{student.region}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td><strong>Tuman</strong></td>
+                                    <td>{{student.district}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">6</th>
+                                    <td><strong>Mahalla</strong></td>
+                                    <td>{{student.street}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="my-5">
+                        <h5 class="card-header align-center text-center">Maqolalar</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nomi</th>
+                                    <th scope="col">Chop etilgan</th>
+                                    <th scope="col">Asosiy</th>
+                                    <th scope="col">Fayl</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for article in articles %}
+                                <tr>
+                                    <th>{{ forloop.counter }}</th>
+                                    <td>{{article.name}}</td>
+                                    <td>{{article.printed}}</td>
+                                    <td>{{article.is_main}}</td>
+                                    <td><a href="{{article.file.url}}">{{article.file.name}}</a></td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="my-5">
+                        <h5 class="card-header align-center text-center">Yutuqlar</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nomi</th>
+                                    <th scope="col">Fayl</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for win in wins %}
+                                <tr>
+                                    <th>{{ forloop.counter }}</th>
+                                    <td>{{win.name}}</td>
+                                    <td><a _blank="True" href="{{win.file.url}}">{{win.file.name}}</a></td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-center my-4">
+                        <button class="btn btn-primary mx-2">Izoh yozish</button>
+                        <button class="btn btn-primary">Qabul qilish</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<!-- / Content -->
+
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+
+        </div>
+
+    </div>
+</footer>
+<!-- / Footer -->
+
+<div class="content-backdrop fade"></div>
+</div>
+
+{% endblock content %}

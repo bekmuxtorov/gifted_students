@@ -1,0 +1,70 @@
+{% load static %}
+<div class="card mb-4">
+  {{message.success}}
+  <h5 class="card-header">Profile ma'lumotlari</h5>
+  <!-- Account -->
+  <div class="card-body">
+    <div class="d-flex align-items-start align-items-sm-center gap-4">
+      <img src="{% static '/assets/img/avatars/1.jpg' %}" alt="user-avatar" class="d-block rounded" height="100"
+        width="100" id="uploadedAvatar" />
+      <div class="button-wrapper">
+        <h4>{{user.first_name.title}} {{user.last_name.title}}</h4>
+        <p class="text-muted mb-0">Ruxsat berilgan JPG, GIF yoki PNG. Maksimal hajmi 800K</p>
+      </div>
+    </div>
+  </div>
+  <hr class="my-0" />
+  <div class="card-body">
+    <form method="POST"> {% csrf_token %}
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label for="id_first_name" class="form-label">Ismi</label>
+          <input class="form-control" type="text" id="id_first_name" name="first_name"
+            value="{{ user.first_name.title }}" autofocus />
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="id_last_name" class="form-label">Familiya</label>
+          <input class="form-control" type="text" name="last_name" id="id_last_name"
+            value="{{ user.last_name.title }}" />
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="id_email" class="form-label">E-mail</label>
+          <input class="form-control" type="email" id="id_email" name="email" value="{{user.email}}"
+            placeholder="john.doe@example.com" />
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label for="id_region" class="form-label">Viloyat</label>
+          <select class="form-select" id="id_region" name="region" aria-label="Default select example">
+            {% for region in regions %}
+            <option value="{{region.id}}">{{region.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label for="id_institution" class="form-label">Ta'lim muassa</label>
+          <select class="form-select" id="id_institution" name="institution" aria-label="Default select example">
+            {% for institution in institutions %}
+            <option value="{{institution.id}}">{{institution.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label for="id_status" class="form-label">Lavozim</label>
+          <select class="form-select" id="id_status" name="status" aria-label="Default select example">
+            {% for s in status %}
+            <option value="{{s.id}}">{{s.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="mt-2">
+        <button type="submit" class="btn btn-primary me-2">O'zgarishlarni saqlash</button>
+        <button type="reset" class="btn btn-outline-secondary">Bekor qilish</button>
+      </div>
+    </form>
+  </div>
+  <!-- /Account -->
+</div>

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'accounts',
     'students',
     'grants',
+    'pages',
 ]
 
 AUTH_USER_MODEL = "accounts.CustomUser"
@@ -147,13 +148,15 @@ GS_BUCKET_NAME = 'iqtidorli_talaba'
 
 STATIC_URL = 'static/'
 
-
+STATICFILES_DIRS = [
+    BASE_DIR / 'staticfiles',
+]
 MEDIA_URL = 'media/'
 
-STORAGES = {"default": {
-    "BACKEND": "storages.backends.gcloud.GoogleCloudStorage"},
-    "staticfiles": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"}
-}
+# STORAGES = {"default": {
+#     "BACKEND": "storages.backends.gcloud.GoogleCloudStorage"},
+#     "staticfiles": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"}
+# }
 
 
 # Default primary key field type
