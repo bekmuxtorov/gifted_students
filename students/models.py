@@ -4,6 +4,12 @@ from accounts.models import CustomUser
 
 # Create your models here.
 
+PRINTED = [
+    ('local', 'Mahalliy jurnalda'),
+    ('foreign', 'Xalqaro jurnalda'),
+
+]
+
 
 class Faculty(models.Model):
     name = models.CharField(max_length=100)
@@ -31,7 +37,8 @@ class SubFaculty(models.Model):
 
 
 class Student(models.Model):
-    base_student = models.OneToOneField(to=CustomUser, on_delete=models.CASCADE)
+    base_student = models.OneToOneField(
+        to=CustomUser, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='students/image', blank=True)
     faculty = models.ForeignKey(
         to=Faculty,
@@ -60,6 +67,7 @@ class Student(models.Model):
     district = models.CharField(max_length=50)
     street = models.CharField(max_length=50)
     resume = models.FileField(upload_to='students/', blank=True)
+    grade_book = models.FileField(upload_to='students/', blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -80,8 +88,11 @@ class Article(models.Model):
         verbose_name='Talaba',
         related_name='articles'
     )
+    printed = models.CharField(
+        max_length=7, choices=PRINTED, blank=True, null=True)
     name = models.CharField(verbose_name='Nomi', max_length=200)
     file = models.FileField(upload_to='students/articles')
+    is_main = models.BooleanField(default=False)
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
