@@ -10,8 +10,6 @@ class FacultySerializer(serializers.ModelSerializer):
 
 
 class SubFacultySerializer(serializers.ModelSerializer):
-    faculty = FacultySerializer(read_only=True)
-
     class Meta:
         model = models.SubFaculty
         fields = '__all__'
