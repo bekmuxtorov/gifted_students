@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Faculty, SubFaculty, Student, Article, Win
+from .models import Faculty, SubFaculty, Student, Article, Win, Message
 
 # Register your models here.
 
@@ -61,3 +61,15 @@ class WinAdmin(admin.ModelAdmin):
     def download_article(self, obj):
         return format_html(f"<a href='{obj.file.url}'>Ko'rish</a>")
     download_article.short_description = 'Ko\'rish'
+
+
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('student', 'letter', 'create_at')
+    list_filter = ('letter',)
+    search_fields = ('student',)
+
+    def message_count(self, obj):
+        return obj.letter.count()
+    message_count.short_description = 'Xabarlar soni'

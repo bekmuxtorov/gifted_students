@@ -48,10 +48,14 @@ INSTALLED_APPS = [
     'drf_yasg',
     "corsheaders",
 
+    "crispy_forms",
+    "crispy_bootstrap5",
+
     # Local apps
     'accounts',
     'students',
     'grants',
+    'pages',
 ]
 
 AUTH_USER_MODEL = "accounts.CustomUser"
@@ -147,13 +151,15 @@ GS_BUCKET_NAME = 'iqtidorli_talaba'
 
 STATIC_URL = 'static/'
 
-
+STATICFILES_DIRS = [
+    BASE_DIR / 'staticfiles',
+]
 MEDIA_URL = 'media/'
 
-STORAGES = {"default": {
-    "BACKEND": "storages.backends.gcloud.GoogleCloudStorage"},
-    "staticfiles": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"}
-}
+# STORAGES = {"default": {
+#     "BACKEND": "storages.backends.gcloud.GoogleCloudStorage"},
+#     "staticfiles": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"}
+# }
 
 
 # Default primary key field type
@@ -177,3 +183,9 @@ REST_FRAMEWORK = {
 
 # CORSHEADERS
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
+
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

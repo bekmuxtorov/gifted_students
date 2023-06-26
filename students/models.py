@@ -4,11 +4,10 @@ from accounts.models import CustomUser
 
 # Create your models here.
 
-PRINTED = [
+PRINTED = (
     ('local', 'Mahalliy jurnalda'),
     ('foreign', 'Xalqaro jurnalda'),
-
-]
+)
 
 
 class Faculty(models.Model):
@@ -62,6 +61,8 @@ class Student(models.Model):
     idcart_number = models.CharField(max_length=16, blank=True)
     passport_or_idcart_file = models.FileField(
         upload_to='students/', blank=True)
+    phone_number = models.CharField(
+        max_length=15, verbose_name="Telefon raqam", blank=True)
     status = models.BooleanField(default=False)
     region = models.CharField(max_length=50)
     district = models.CharField(max_length=50)
@@ -92,7 +93,8 @@ class Article(models.Model):
         max_length=7, choices=PRINTED, blank=True, null=True)
     name = models.CharField(verbose_name='Nomi', max_length=200)
     file = models.FileField(upload_to='students/articles')
-    is_main = models.BooleanField(default=False)
+    is_main = models.BooleanField(default=False, blank=True)
+    grade = models.FloatField(verbose_name='Baho', blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -112,6 +114,7 @@ class Win(models.Model):
     )
     name = models.CharField(verbose_name='Nomi', max_length=200)
     file = models.FileField(upload_to='students/wins')
+    grade = models.FloatField(verbose_name='Baho', blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -120,3 +123,17 @@ class Win(models.Model):
     class Meta:
         verbose_name = 'Yutuq'
         verbose_name_plural = '5. Yutuqlar'
+
+
+class Message(models.Model):
+    student = models.ForeignKey(
+        to=Student,
+        on_delete=models.CASCADE,
+        related_name='messages'
+    )
+    letter = models.TextField(verbose_name='Talaba uchun xat', max_length=3000)
+    create_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Xabar'
+        verbose_name_plural = 'Xabarlar'
