@@ -91,3 +91,4 @@ class RegisterAPIView(APIView):
 class CustomUserDetailAPIView(generics.RetrieveAPIView):
     queryset = get_user_model()
     serializer_class = serializers.UserRegisterSerializer
+

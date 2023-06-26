@@ -1,14 +1,19 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 from students import models as student_moduls
 from grants import models as grants_models
-from django.contrib import messages
 from grants.forms import GrantForm
 
 
+@login_required(login_url='/accounts/login/')
 def HomePageView(request):
     return render(request, 'index.html')
 
 
+@login_required(login_url='/accounts/login/')
 def GrantListView(request):
     all_grants = grants_models.Grant.objects.all()
 
@@ -18,12 +23,14 @@ def GrantListView(request):
     return render(request, 'grant_list.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 def GrantDetailView(request, pk):
     grant = grants_models.Grant.objects.filter(pk=pk).first()
     context = {'grant': grant}
     return render(request, 'grant_detail.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 def StudentListView(request, grant_id=None):
     if grant_id != 0:
         sc_items = grants_models.ScienceDirection.objects.filter(
@@ -34,6 +41,7 @@ def StudentListView(request, grant_id=None):
     return render(request, 'grant_student_list.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 def StudentDetailView(request, pk):
     student = student_moduls.Student.objects.filter(pk=pk).first()
     articles = student_moduls.Article.objects.filter(student=student)
@@ -62,6 +70,7 @@ def StudentDetailView(request, pk):
     return render(request, 'grant_student_detail.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 def create_grant(request):
     form = GrantForm(request.POST or None)
     if request.method == "POST":
@@ -77,6 +86,7 @@ def create_grant(request):
     return render(request, 'grant_form.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 def update_grant(request, pk):
     context = {}
 
@@ -91,6 +101,7 @@ def update_grant(request, pk):
     return render(request, "grant_form.html", context)
 
 
+@login_required(login_url='/accounts/login/')
 def delete_grant(request, pk):
     context = {}
 
@@ -102,7 +113,12 @@ def delete_grant(request, pk):
     context["obj"] = obj
     return render(request, "grant_delete.html", context)
 
-
+@login_required(login_url='/accounts/login/')
 def FacultyListView(request):
     faculties = student_moduls.Faculty.objects.all()
     return render(request, 'faculty_list.html', {'faculties': faculties})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')

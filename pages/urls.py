@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.HomePageView, name='home'),
+    path('logout/', views.logout_view, name='logout'),
     path('grants/', views.GrantListView, name='grants'),
     path('grants/<int:pk>/', views.GrantDetailView, name='grant_detail'),
     path('grants/new/', views.create_grant, name='create_grant'),
