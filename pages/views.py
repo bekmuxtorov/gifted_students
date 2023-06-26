@@ -46,3 +46,9 @@ def StudentDetailView(request, pk):
     }
     print(articles)
     return render(request, 'grant_student_detail.html', context)
+
+
+def FacultyListView(request):
+    faculties = student_moduls.Faculty.objects.all()
+    print(faculties.first().students_count)
+    return render(request, 'faculty_list.html', {'faculties': faculties})

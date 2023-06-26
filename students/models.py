@@ -17,6 +17,12 @@ class Faculty(models.Model):
     def __str__(self):
         return self.name
 
+    def get_date(self):
+        return self.create_at.strftime("%d/%m/%Y, %H:%M")
+
+    def students_count(self):
+        return self.students.count()
+
     class Meta:
         verbose_name = 'Fakultet'
         verbose_name_plural = '1. Fakultetlar'
