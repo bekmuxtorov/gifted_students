@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="card mb-4">
+            <div id="results" class="col-lg-12 col-md-12 order-1">
+                <div style="display: flex; align-items: center;justify-content: space-between;">
+                    <div>
+                        <h5 class="card-header">Fakultet form</h5>
+                        <p class="text-muted ms-4 mb-0">Fakultet
+                            {% if action == 'add' %}qo'shish{% endif %}
+                            {% if action == 'edit' %}tahrirlash{% endif %}
+                            {% if action == 'delete' %}o'chirish{% endif %}
+                        </p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% if action == 'delete' %}
+                        <p>{{ obj }} fakultetni o'chirmoqchimisiz ?</p>
+                        <div class="d-block">
+                            <button type="submit" class="btn btn-outline-danger float-end mb-3 mx-3">O'chirish</button>
+                            <input type="button" value="Ortga" class="btn btn-warning float-end"
+                                onclick="window.location='{% url 'list_create_faculty' %}'" />
+                        </div>
+                        {% else %}
+                        {{form| crispy}}
+                        <button type="submit" class="btn btn-primary w-25 float-end mb-3">Saqlash</button>
+                        {% endif %}
+                    </form>
+
+                    <br>
+                    <br>
+                    <br>
+                    <hr>
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nomi</th>
+                                <th>Tahrirlash</th>
+                                <th>O'chirish</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Nomi</th>
+                                <th>Tahrirlash</th>
+                                <th>O'chirish</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for faculty in faculties %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{faculty.name.title}}</td>
+                                <td><a href="{% url 'update_faculty' faculty.id %}">Tahrirlash</a></td>
+                                <td><a href="{% url 'delete_faculty' faculty.id %}">O'chirish</a></td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<!-- / Content -->
+
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+
+        </div>
+
+    </div>
+</footer>
+<!-- / Footer -->
+
+<div class="content-backdrop fade"></div>
+</div>
+
+{% endblock content %}

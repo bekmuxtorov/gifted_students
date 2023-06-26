@@ -3,6 +3,14 @@ from . import views
 
 urlpatterns = [
     path('', views.HomePageView, name='home'),
+    path('faculty/create', views.list_create_faculty, name='list_create_faculty'),
+    path('faculty/update/<int:pk>/', views.update_facult, name='update_faculty'),
+    path('faculty/delete/<int:pk>/', views.delete_faculty, name='delete_faculty'),
+
+    path('direction/create/', views.list_create_subfaculty, name='list_create_subfaculty'),
+    path('direction/update/<int:pk>/', views.update_subfaculty, name='update_subfaculty'),
+    path('direction/delete/<int:pk>/', views.delete_subfaculty, name='delete_subfaculty'),
+
     path('logout/', views.logout_view, name='logout'),
     path('grants/', views.GrantListView, name='grants'),
     path('grants/<int:pk>/', views.GrantDetailView, name='grant_detail'),

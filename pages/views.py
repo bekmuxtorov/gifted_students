@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from students.forms import FacultyForm, SubFacultyForm
 
 from students import models as student_moduls
 from grants import models as grants_models
@@ -104,9 +105,7 @@ def update_grant(request, pk):
 @login_required(login_url='/accounts/login/')
 def delete_grant(request, pk):
     context = {}
-
     obj = grants_models.Grant.objects.get(id=pk)
-
     if request.method == "POST":
         obj.delete()
         return redirect('grants')
@@ -124,3 +123,109 @@ def FacultyListView(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+
+def list_create_faculty(request):
+    form = FacultyForm(request.POST or None)
+    if request.method == "POST":
+        form = FacultyForm(data = request.POST)
+        if form.is_valid():
+            form.save()
+            obj = form.instance
+            print(obj)
+            return redirect('list_create_faculty')
+
+    faculties = student_moduls.Faculty.objects.all()
+
+    context = {
+        "form":form,
+        'faculties': faculties,
+        'action': 'add',
+    }
+    return render(request, 'faculty_form.html', context)
+
+
+def update_facult(request, pk):
+    context = {}
+    obj = student_moduls.Faculty.objects.get(id=pk)
+    form = FacultyForm(request.POST or None, instance=obj)
+    if form.is_valid():
+        form.save()
+        return redirect('list_create_faculty')
+
+    faculties = student_moduls.Faculty.objects.all()
+    context["form"] = form
+    context["faculties"] = faculties
+    context["action"] = "edit"
+    return render(request, "faculty_form.html", context)
+
+
+def delete_faculty(request, pk):
+    context = {}
+
+    obj = student_moduls.Faculty.objects.get(id=pk)
+
+    if request.method == "POST":
+        obj.delete()
+        return redirect('list_create_faculty')
+
+    faculties = student_moduls.Faculty.objects.all()
+    context["obj"] = obj
+    context["faculties"] = faculties
+    context["action"] = "delete"
+    return render(request, "faculty_form.html", context)
+
+
+# Yo'nalish
+def list_create_subfaculty(request):
+    print(request.POST)
+    form = SubFacultyForm(request.POST or None)
+    if request.method == "POST":
+        form = SubFacultyForm(data = request.POST)
+        if form.is_valid():
+            form.save()
+            obj = form.instance
+            print(obj)
+            return redirect('list_create_subfaculty')
+
+    subfaculties = student_moduls.SubFaculty.objects.all()
+
+    context = {
+        'form': form,
+        'subfaculties': subfaculties,
+        'action': 'add',
+    }
+    return render(request, 'subfaculty_form.html', context)
+
+
+def update_subfaculty(request, pk):
+    context = {}
+
+    obj = student_moduls.SubFaculty.objects.get(id=pk)
+    form = SubFacultyForm(request.POST or None, instance=obj)
+
+    if form.is_valid():
+        form.save()
+        return redirect('list_create_subfaculty')
+
+    subfaculties = student_moduls.SubFaculty.objects.all()
+    context["form"] = form
+    context["subfaculties"] = subfaculties
+    context["action"] = "edit"
+    return render(request, "subfaculty_form.html", context)
+
+
+def delete_subfaculty(request, pk):
+    context = {}
+
+    obj = student_moduls.SubFaculty.objects.get(id=pk)
+
+    if request.method == "POST":
+        obj.delete()
+        return redirect('list_create_subfaculty')
+
+    subfaculties = student_moduls.SubFaculty.objects.all()
+    context["obj"] = obj
+    context["subfaculties"] = subfaculties
+    context["action"] = "delete"
+    return render(request, "subfaculty_form.html", context)
