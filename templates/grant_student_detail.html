@@ -154,10 +154,26 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="d-flex justify-content-center my-4">
-                        <button class="btn btn-primary mx-2">Izoh yozish</button>
-                        <button class="btn btn-primary">Qabul qilish</button>
+                    {% if messages %}
+                    <div class="my-5">
+                        <h5 class="card-header align-center text-center">Xabarlar</h5>
+                        {% for message in messages %}
+                        <h6 class="my-0">{{ message.letter }}</h6>
+                        <small class="my-0">{{ message.create_at|date:"H:i:s d/m/Y" }}</small>
+                        <hr>
+                        {% endfor %}
                     </div>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-center my-4">
+                            <button class="btn btn-primary">Qabul qilish</button><br>
+                            <button onclick="myFunction()" id="commentBtn" class="btn btn-primary mx-2" type="button">Izoh yozish</button>
+                            <!-- onclick="window.location.href='message'" -->
+                        </div>
+                        <textarea cols='50' rows='10' name='letter' id='text_id' class='form-control' style='resize:vertical;display:none'></textarea>
+                        <p id="demo"></p>
+                    </form>
                 </div>
             </div>
         </div>
@@ -175,6 +191,16 @@
             ©
             <script>
                 document.write(new Date().getFullYear());
+                function myFunction() {
+                    document.getElementById("text_id").style = "resize:vertical;display:block";
+                    var button = document.getElementById("commentBtn");
+                    let btn = document.getElementById("commentBtn").textContent;
+                    if (btn === "Jo'natish") {
+                        button.type = "submit";
+                    } else {
+                        document.getElementById("commentBtn").innerText="Jo'natish";
+                    }
+                }
             </script>
 
         </div>
