@@ -113,12 +113,14 @@ def delete_grant(request, pk):
     context["obj"] = obj
     return render(request, "grant_delete.html", context)
 
+
 @login_required(login_url='/accounts/login/')
 def FacultyListView(request):
     faculties = student_moduls.Faculty.objects.all()
     return render(request, 'faculty_list.html', {'faculties': faculties})
 
 
+@login_required(login_url='/accounts/login/')
 def logout_view(request):
     logout(request)
     return redirect('home')
