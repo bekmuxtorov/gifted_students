@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+            <div class="col-lg-8 mb-4 order-0">
+                <div class="card">
+                    <div class="d-flex align-items-end row">
+                        <div class="col-sm-7">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">Assalomu alekum {{user.first_name.title}} 🎉</h4>
+                                <p class="mb-4">
+                                    Maqsadingiz yo'lida olg'a yurishda davom eting. <br>
+                                    Biz bilan oson o'rganing!
+                                </p>
+
+                                <a href="javascript:;" class="btn btn-sm btn-outline-primary disabled">Darslarni
+                                    boshlash</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 text-center text-sm-left">
+                            <div class="card-body pb-0 px-0 px-md-4">
+                                <img src="{% static '/assets/img/illustrations/man-with-laptop-light.png' %}"
+                                    height="140" alt="View Badge User"
+                                    data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                    data-app-light-img="illustrations/man-with-laptop-light.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4  order-1">
+                <div class="col-lg-12 col-md-12 col-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title d-flex align-items-start justify-content-between">
+                                <div class="avatar flex-shrink-0">
+                                    <img src="{% static '/assets/img/icons/unicons/chart-success.png' %}"
+                                        alt="chart success" class="rounded" />
+                                </div>
+                                <div class="dropdown">
+                                    <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
+                                        <a class="dropdown-item" href="">Darslarni boshlash</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="fw-semibold d-block mb-1">Bugungi kun</span>
+                            <h3 class="card-title mb-2">{% now "D d M Y" %}</h3>
+                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> </small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div id="results" class="col-lg-12 col-md-12 order-1">
+                <h5 class="card-header">Peshqadamlar jadvali</h5>
+                <p class="text-muted ms-4 mb-0">Bo'limlar bo'yicha qo'yilgan nazorat ishi umumiy natijalari</p>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>FISH</th>
+                                <th>Bo'lim</th>
+                                <th>Jami savollar</th>
+                                <th>Xato javoblar</th>
+                                <th>To'g'ri javoblar</th>
+                                <th>Ishlangan vaqt</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>FISH</th>
+                                <th>Bo'lim</th>
+                                <th>Jami savollar</th>
+                                <th>Xato javoblar</th>
+                                <th>To'g'ri javoblar</th>
+                                <th>Ishlangan vaqt</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for result in all_results %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{result.user.first_name.title}} {{result.user.last_name.title}}</td>
+                                <td>{{result.department.name}}</td>
+                                <td>{{result.total_question}}</td>
+                                <td>{{result.wrong}}</td>
+                                <td>{{result.correct}}</td>
+                                <td>{{result.created_at}}</td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<!-- / Content -->
+
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+
+        </div>
+
+    </div>
+</footer>
+<!-- / Footer -->
+
+<div class="content-backdrop fade"></div>
+</div>
+
+{% endblock content %}

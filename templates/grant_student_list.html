@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="card mb-4">
+            <div id="results" class="col-lg-12 col-md-12 order-1">
+                <div style="display: flex; align-items: center;justify-content: space-between;">
+                    <div>
+                        <h5 class="card-header">Talabalar jadvali</h5>
+                        <p class="text-muted ms-4 mb-0">Ushbu grantga topshirgan talabalar jadvali</p>
+                    </div>
+                    <!-- <div style="margin-right: 50px;">
+                        <a class="btn btn-primary" style="color: #fff;">Grant qo'shish</a>
+                    </div> -->
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>FISH</th>
+                                <th>Fakulteti</th>
+                                <th>Kursi || Guruhi</th>
+                                <th>Telefon raqam</th>
+                                <th>Topshirgan vaqti</th>
+                                <th>Batafsil</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>FISH</th>
+                                <th>Fakulteti</th>
+                                <th>Kursi || Guruhi</th>
+                                <th>Telefon raqam</th>
+                                <th>Topshirgan vaqti</th>
+                                <th>Batafsil</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% if sc_items %}
+                            {% for sc_item in sc_items %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{sc_item.student.get_full_name.title}}</td>
+                                <td>{{sc_item.student.faculty}}</td>
+                                <td>{{sc_item.student.course}} || {{sc_item.student.group}}</td>
+                                <td>{{sc_item.student.phone_number}}</td>
+                                <td>{{sc_item.student.create_at}}</td>
+                                <td><a href="{% url 'student_detail' pk=sc_item.student.id %}">Ko'rish</a></td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            {% for student in students %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{student.get_full_name.title}}</td>
+                                <td>{{student.faculty}}</td>
+                                <td>{{student.course}} || {{student.group}}</td>
+                                <td>{{student.phone_number}}</td>
+                                <td>{{student.create_at}}</td>
+                                <td><a href="{% url 'student_detail' pk=student.pk %}">Ko'rish</a></td>
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<!-- / Content -->
+
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+
+        </div>
+
+    </div>
+</footer>
+<!-- / Footer -->
+
+<div class="content-backdrop fade"></div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul>
+    {% for instance in instances %}
+    <li>{{ instance.title }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No instances found.</p>
+{% endif %}
+{% endblock content %}
