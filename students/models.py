@@ -17,6 +17,12 @@ class Faculty(models.Model):
     def __str__(self):
         return self.name
 
+    def get_date(self):
+        return self.create_at.strftime("%d/%m/%Y, %H:%M")
+
+    def students_count(self):
+        return self.students.count()
+
     class Meta:
         verbose_name = 'Fakultet'
         verbose_name_plural = '1. Fakultetlar'
@@ -60,15 +66,15 @@ class Student(models.Model):
     passport_number = models.CharField(max_length=10, blank=True)
     idcart_number = models.CharField(max_length=16, blank=True)
     passport_or_idcart_file = models.FileField(
-        upload_to='students/', blank=True)
+        upload_to='media/students/', blank=True)
     phone_number = models.CharField(
         max_length=15, verbose_name="Telefon raqam", blank=True)
     status = models.BooleanField(default=False)
     region = models.CharField(max_length=50)
     district = models.CharField(max_length=50)
     street = models.CharField(max_length=50)
-    resume = models.FileField(upload_to='students/', blank=True)
-    grade_book = models.FileField(upload_to='students/', blank=True, null=True)
+    resume = models.FileField(upload_to='media/students/', blank=True)
+    grade_book = models.FileField(upload_to='media/students/', blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -92,7 +98,7 @@ class Article(models.Model):
     printed = models.CharField(
         max_length=7, choices=PRINTED, blank=True, null=True)
     name = models.CharField(verbose_name='Nomi', max_length=200)
-    file = models.FileField(upload_to='students/articles')
+    file = models.FileField(upload_to='media/students/articles')
     is_main = models.BooleanField(default=False, blank=True)
     grade = models.FloatField(verbose_name='Baho', blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -113,7 +119,7 @@ class Win(models.Model):
         related_name='wins'
     )
     name = models.CharField(verbose_name='Nomi', max_length=200)
-    file = models.FileField(upload_to='students/wins')
+    file = models.FileField(upload_to='media/students/wins')
     grade = models.FloatField(verbose_name='Baho', blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
 
@@ -136,4 +142,4 @@ class Message(models.Model):
 
     class Meta:
         verbose_name = 'Xabar'
-        verbose_name_plural = 'Xabarlar'
+        verbose_name_plural = '6. Xabarlar'

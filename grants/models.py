@@ -7,7 +7,7 @@ class Grant(models.Model):
     name = models.CharField('Nomi', max_length=200)
     description = models.TextField('Umumiy ma\'lumot', blank=True, null=True)
     statute = models.FileField(
-        'Nizom', upload_to='grant/nizomlar/', blank=True, null=True)
+        'Nizom', upload_to='media/grant/nizomlar/', blank=True, null=True)
     start_date = models.DateTimeField('Boshlanish vaqti')
     end_date = models.DateTimeField('Tugash vaqti')
     status = models.BooleanField('Holati', default=True)
@@ -43,11 +43,11 @@ class ScienceDirection(models.Model):
     research_advisor = models.CharField(
         'Ilmiy maslahatchi', max_length=100, blank=True, null=True)
     letter_dekan = models.FileField(
-        'Dekanlik hujjati', upload_to='grant/dekan_tavsiyanoma/', blank=True, null=True)
+        'Dekanlik hujjati', upload_to='media/grant/dekan_tavsiyanoma/', blank=True, null=True)
     letter_mudir = models.FileField(
-        'Mudirlik hujjati', upload_to='grant/mudir_tavsiyanoma/', blank=True, null=True)
+        'Mudirlik hujjati', upload_to='media/grant/mudir_tavsiyanoma/', blank=True, null=True)
     rank_notebook = models.FileField(
-        'Reyting daftarcha', upload_to='grant/reyting_daftarcha/', blank=True, null=True)
+        'Reyting daftarcha', upload_to='media/grant/reyting_daftarcha/', blank=True, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

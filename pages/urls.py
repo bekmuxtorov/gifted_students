@@ -12,5 +12,5 @@ urlpatterns = [
     path('students/by_grant/<int:grant_id>/',
          views.StudentListView, name='students'),
     path('students/<int:pk>/', views.StudentDetailView, name='student_detail'),
-
+    path('faculties/', views.FacultyListView, name='faculties'), 
 ]

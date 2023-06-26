@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="card mb-4">
+            <div id="results" class="col-lg-12 col-md-12 order-1">
+                <div style="display: flex; align-items: center;justify-content: space-between;">
+                    <div>
+                        <h5 class="card-header">Fakultetlar</h5>
+                        <p class="text-muted ms-4 mb-0">Fakultetlar jadvali</p>
+                    </div>
+                    <div style="margin-right: 50px;">
+                        <a class="btn btn-primary" style="color: #fff;">Fakultet qo'shish</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Nomi</th>
+                                <th>Qo'shilgan vaqti</th>
+                                <th>Topshirgan talaba soni</th>
+                                <th>Tahrirlash</th>
+                                <th>O'chirish</th>
+                                <th>Yo'nalishlar</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>№</th>
+                                <th>Nomi</th>
+                                <th>Qo'shilgan vaqti</th>
+                                <th>Topshirgan talaba soni</th>
+                                <th>Tahrirlash</th>
+                                <th>O'chirish</th>
+                                <th>Yo'nalishlar</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for faculty in faculties %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{faculty.name.title}}</td>
+                                <td>{{faculty.get_date}}</td>
+                                <td>{{faculty.students_count}}</td>
+                                <td><a href="{% url 'grant_detail' pk=faculty.pk %}">Tahrirlash</a></td>
+                                <td><a href="{% url 'grant_detail' pk=faculty.pk %}">O'chirish</a></td>
+                                <td><a href="{% url 'grant_detail' pk=faculty.pk %}">Ko'rish</a></td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<!-- / Content -->
+
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+
+        </div>
+
+    </div>
+</footer>
+<!-- / Footer -->
+
+<div class="content-backdrop fade"></div>
+</div>
+
+{% endblock content %}

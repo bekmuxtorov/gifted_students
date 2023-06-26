@@ -101,3 +101,8 @@ def delete_grant(request, pk):
         return redirect('grants')
     context["obj"] = obj
     return render(request, "grant_delete.html", context)
+
+
+def FacultyListView(request):
+    faculties = student_moduls.Faculty.objects.all()
+    return render(request, 'faculty_list.html', {'faculties': faculties})
