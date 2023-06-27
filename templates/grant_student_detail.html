@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load dot_reverse %}
+{% load to_float %}
+
 {% block content %}
 <div class="content-wrapper">
     <!-- Content -->
@@ -113,8 +116,9 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nomi</th>
                                     <th scope="col">Chop etilgan</th>
-                                    <th scope="col">Asosiy</th>
                                     <th scope="col">Fayl</th>
+                                    <th scope="col">Baho</th>
+                                    <th scope="col">Harakatlar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -123,8 +127,19 @@
                                     <th>{{ forloop.counter }}</th>
                                     <td>{{article.name}}</td>
                                     <td>{{article.printed}}</td>
-                                    <td>{{article.is_main}}</td>
                                     <td><a href="{{article.file.url}}">{{article.file.name}}</a></td>
+                                    <form action="" method="post">{% csrf_token %}
+                                        <td>
+                                            <input type="hidden" name="article_id" value="{{article.id}}">
+                                            <input class="grade_inputs" type="" name="article_grade"
+                                                value="{{article.grade|to_float}}" id="grade_input_{{article.id}}"
+                                                disabled></input>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary edit_buttons" id="button_{{article.id}}"
+                                                type="button" style="width: 100%;">O'zgartirish</button>
+                                        </td>
+                                    </form>
                                 </tr>
                                 {% endfor %}
 
@@ -168,10 +183,12 @@
                         {% csrf_token %}
                         <div class="d-flex justify-content-center my-4">
                             <button class="btn btn-primary">Qabul qilish</button><br>
-                            <button onclick="myFunction()" id="commentBtn" class="btn btn-primary mx-2" type="button">Izoh yozish</button>
+                            <button onclick="myFunction()" id="commentBtn" class="btn btn-primary mx-2"
+                                type="button">Izoh yozish</button>
                             <!-- onclick="window.location.href='message'" -->
                         </div>
-                        <textarea cols='50' rows='10' name='letter' id='text_id' class='form-control' style='resize:vertical;display:none'></textarea>
+                        <textarea cols='50' rows='10' name='letter' id='text_id' class='form-control'
+                            style='resize:vertical;display:none'></textarea>
                         <p id="demo"></p>
                     </form>
                 </div>
@@ -198,9 +215,30 @@
                     if (btn === "Jo'natish") {
                         button.type = "submit";
                     } else {
-                        document.getElementById("commentBtn").innerText="Jo'natish";
+                        document.getElementById("commentBtn").innerText = "Jo'natish";
                     }
                 }
+
+                buttons_edit = document.getElementsByClassName("edit_buttons")
+                edit_buttons = Array.from(buttons_edit)
+                edit_buttons.forEach(function (button) {
+                    button.addEventListener("click", buttonClick);
+                });
+
+                function buttonClick(event) {
+                    var clickedButtonId = event.target.id;
+                    var grade_input_id = "grade_input_" + clickedButtonId.split("_")[1];
+                    var edit_button = document.getElementById(clickedButtonId);
+                    let btn = document.getElementById(clickedButtonId).textContent;
+                    if (btn === "Saqlash") {
+                        edit_button.type = 'submit';
+                    } else {
+                        edit_button.innerText = "Saqlash";
+                        grade_input = document.getElementById(grade_input_id);
+                        grade_input.disabled = false;
+                    }
+                }
+
             </script>
 
         </div>

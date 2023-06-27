@@ -45,14 +45,18 @@ def StudentListView(request, grant_id=None):
 @login_required(login_url='/accounts/login/')
 def StudentDetailView(request, pk):
     student = student_moduls.Student.objects.filter(pk=pk).first()
-    articles = student_moduls.Article.objects.filter(student=student)
-    wins = student_moduls.Win.objects.filter(student=student)
-
-    # student = student_moduls.Student.objects.get(id=pk)
+    articles = student_moduls.Article.objects.filter(student=student).order_by('-grade')
+    wins = student_moduls.Win.objects.filter(student=student).order_by('-grade')
     text = request.POST.get('letter')
     message_student = student_moduls.Student.objects.get(id=pk)
     messages = student_moduls.Message.objects.all().filter(student=message_student).order_by('-create_at')
-    print(message_student)
+    if request.method == "POST":
+        article_id = int(request.POST.get('article_id'))
+        article_grade = float(request.POST.get('article_grade'))
+        article = student_moduls.Article.objects.get(id=article_id)
+        article.grade = article_grade
+        article.save()
+        print('lllll')
     context = {
         'student': student,
         'articles': articles,
@@ -64,9 +68,7 @@ def StudentDetailView(request, pk):
         letter = student_moduls.Message.objects.create(student=student, letter=text)
         letter.save()
     except Exception as err:
-        
         return render(request, "grant_student_detail.html", context)
-    
 
     return render(request, 'grant_student_detail.html', context)
 

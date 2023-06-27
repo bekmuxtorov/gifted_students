@@ -44,7 +44,7 @@ class SubFaculty(models.Model):
 class Student(models.Model):
     base_student = models.OneToOneField(
         to=CustomUser, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='students/image', blank=True)
+    image = models.ImageField(upload_to='media/students/image', blank=True)
     faculty = models.ForeignKey(
         to=Faculty,
         on_delete=models.SET_NULL,
@@ -99,8 +99,7 @@ class Article(models.Model):
         max_length=7, choices=PRINTED, blank=True, null=True)
     name = models.CharField(verbose_name='Nomi', max_length=200)
     file = models.FileField(upload_to='media/students/articles')
-    is_main = models.BooleanField(default=False, blank=True)
-    grade = models.FloatField(verbose_name='Baho', blank=True, null=True)
+    grade = models.FloatField(verbose_name='Baho', default=0)
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
