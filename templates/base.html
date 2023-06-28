@@ -68,8 +68,8 @@
                     <!-- Dashboard -->
                     <li class="menu-item active">
                         <a href="{% url 'home' %}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Dashboard</div>
+                            <iconify-icon icon="bx:home-circle" width="20"></iconify-icon>&nbsp&nbsp&nbsp
+                            <div data-i18n="Analytics"> Dashboard</div>
                         </a>
                     </li>
 
@@ -80,28 +80,28 @@
 
                     <li class="menu-item">
                         <a href="{% url 'grants' %}" class="menu-link ">
-                            <i class="menu-icon tf-icons bx bx-layout"></i>
+                            <iconify-icon icon="bx:layout" width="20"></iconify-icon>&nbsp&nbsp&nbsp
                             <div data-i18n="Layouts">Grantlar</div>
                         </a>
                     </li>
 
                     <li class="menu-item">
                         <a href="{% url 'students' grant_id=0 %}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-layout"></i>
+                            <iconify-icon icon="bx:layout" width="20"></iconify-icon>&nbsp&nbsp&nbsp
                             <div data-i18n="Layouts">Talabalar</div>
                         </a>
                     </li>
 
                     <li class="menu-item">
-                        <a href="{% url 'list_create_faculty' %}" class="menu-link"> <i
-                                class="menu-icon tf-icons bx bx-layout"></i>
+                        <a href="{% url 'list_create_faculty' %}" class="menu-link">
+                            <iconify-icon icon="bx:layout" width="20"></iconify-icon>&nbsp&nbsp&nbsp
                             <div data-i18n="Layouts">Fakultetlar</div>
                         </a>
                     </li>
 
                     <li class="menu-item">
                         <a href="{% url 'list_create_subfaculty' %}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-layout"></i>
+                            <iconify-icon icon="bx:layout" width="20"></iconify-icon>&nbsp&nbsp&nbsp
                             <div data-i18n="Layouts">Yo'nalishlar</div>
                         </a>
                     </li>
@@ -119,7 +119,7 @@
                     id="layout-navbar">
                     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
                         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                            <i class="bx bx-menu bx-sm"></i>
+                            <iconify-icon icon="bx:menu" width="20" height="20"></iconify-icon>
                         </a>
                     </div>
 
@@ -127,7 +127,7 @@
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
+                                <iconify-icon icon="bx:search" width="20"></iconify-icon>
                                 <form action="">
                                     <input type="search" name="q" class="form-control border-0 shadow-none"
                                         placeholder="Qidirish..." aria-label="Qidirish..." />
@@ -215,6 +215,7 @@
     <!-- / Layout wrapper -->
 
     <!-- Core JS -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
     <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
