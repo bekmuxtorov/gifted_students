@@ -13,9 +13,12 @@
                         <p class="text-muted ms-4 mb-0">{{student.get_full_name}} haqida batafsil ma'lumot</p>
                     </div>
 
+                    {% if student.image%}
                     <div class="profile-image">
                         <img src="{{student.image.url}}" alt="{{student.get_full_name}">
                     </div>
+                    {% endif %}
+
                 </div>
                 <div class="card-body">
 
