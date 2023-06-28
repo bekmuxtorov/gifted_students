@@ -51,12 +51,23 @@ def StudentDetailView(request, pk):
     message_student = student_moduls.Student.objects.get(id=pk)
     messages = student_moduls.Message.objects.all().filter(student=message_student).order_by('-create_at')
     if request.method == "POST":
-        article_id = int(request.POST.get('article_id'))
-        article_grade = float(request.POST.get('article_grade'))
-        article = student_moduls.Article.objects.get(id=article_id)
-        article.grade = article_grade
-        article.save()
-        print('lllll')
+        try:
+            article_grade = (request.POST.get('article_grade'))
+            print('#'*10)
+            print(article_grade)
+            print('#'*10)
+            article_id = int(request.POST.get('article_id'))
+
+            article = student_moduls.Article.objects.get(id=article_id)
+            article.grade = article_grade
+            article.save()
+        except:
+            print('men shettaman')
+            win_id = int(request.POST.get('win_id'))
+            win_grade = float(request.POST.get('win_grade'))
+            win = student_moduls.Win.objects.get(id=win_id)
+            win.grade = win_grade
+            win.save()
     context = {
         'student': student,
         'articles': articles,

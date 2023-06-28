@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load dot_reverse %}
-{% load to_float %}
 
 {% block content %}
 <div class="content-wrapper">
@@ -15,6 +13,9 @@
                         <p class="text-muted ms-4 mb-0">{{student.get_full_name}} haqida batafsil ma'lumot</p>
                     </div>
 
+                    <div class="profile-image">
+                        <img src="{{student.image.url}}" alt="{{student.get_full_name}">
+                    </div>
                 </div>
                 <div class="card-body">
 
@@ -131,8 +132,8 @@
                                     <form action="" method="post">{% csrf_token %}
                                         <td>
                                             <input type="hidden" name="article_id" value="{{article.id}}">
-                                            <input class="grade_inputs" type="" name="article_grade"
-                                                value="{{article.grade|to_float}}" id="grade_input_{{article.id}}"
+                                            <input class="grade_inputs" type="number" name="article_grade"
+                                                value="{{article.grade}}" id="grade_input_{{article.id}}"
                                                 disabled></input>
                                         </td>
                                         <td>
@@ -155,6 +156,8 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nomi</th>
                                     <th scope="col">Fayl</th>
+                                    <th scope="col">Baho</th>
+                                    <th scope="col">Harakatlar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -163,6 +166,17 @@
                                     <th>{{ forloop.counter }}</th>
                                     <td>{{win.name}}</td>
                                     <td><a _blank="True" href="{{win.file.url}}">{{win.file.name}}</a></td>
+                                    <form action="" method="POST">{% csrf_token %}
+                                        <td>
+                                            <input type="hidden" name="win_id" value="{{win.id}}">
+                                            <input class="grade_inputs" type="number" name="win_grade"
+                                                value="{{win.grade}}" id="grade_input_win{{win.id}}" disabled></input>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary edit_buttons" id="button_win{{win.id}}"
+                                                type="button" style="width: 100%;">O'zgartirish</button>
+                                        </td>
+                                    </form>
                                 </tr>
                                 {% endfor %}
 
@@ -227,8 +241,10 @@
 
                 function buttonClick(event) {
                     var clickedButtonId = event.target.id;
-                    var grade_input_id = "grade_input_" + clickedButtonId.split("_")[1];
+                    var myArray = clickedButtonId.split("_")
+                    var grade_input_id = "grade_input_" + myArray[myArray.length - 1];
                     var edit_button = document.getElementById(clickedButtonId);
+                    console.log(edit_button);
                     let btn = document.getElementById(clickedButtonId).textContent;
                     if (btn === "Saqlash") {
                         edit_button.type = 'submit';

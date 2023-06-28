@@ -99,7 +99,7 @@ class Article(models.Model):
         max_length=7, choices=PRINTED, blank=True, null=True)
     name = models.CharField(verbose_name='Nomi', max_length=200)
     file = models.FileField(upload_to='media/students/articles')
-    grade = models.FloatField(verbose_name='Baho', default=0)
+    grade = models.IntegerField(verbose_name='Baho', default=0)
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -119,7 +119,7 @@ class Win(models.Model):
     )
     name = models.CharField(verbose_name='Nomi', max_length=200)
     file = models.FileField(upload_to='media/students/wins')
-    grade = models.FloatField(verbose_name='Baho', blank=True, null=True)
+    grade = models.IntegerField(verbose_name='Baho', default=0)
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
