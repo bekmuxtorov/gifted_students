@@ -43,3 +43,9 @@ class WinSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Win
         fields = '__all__'
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Message
+        fields = '__all__'

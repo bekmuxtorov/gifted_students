@@ -33,4 +33,11 @@ urlpatterns = [
     path('student-wins/<int:pk>/', views.WinDetailAPIView.as_view()),
     path('student-wins/<int:pk>/update/', views.WinUpdateAPIView.as_view()),
     path('student-wins/<int:pk>/delete/', views.WinDeleteAPIView.as_view()),
+
+    # Message
+    path('messages/create/', views.MessageCreateAPIView.as_view()),
+    path('messages/', views.MessageListAPIView.as_view()),
+    path('messages/<int:pk>/', views.MessageDetailAPIView.as_view()),
+    path('messages/<int:pk>/update/', views.MessageUpdateAPIView.as_view()),
+    path('messages/<int:pk>/delete/', views.MessageDeleteAPIView.as_view()),
 ]

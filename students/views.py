@@ -133,10 +133,42 @@ class WinUpdateAPIView(generics.UpdateAPIView):
     serializer_class = serializers.WinSerializer
 
 
-# Article Delete API View
+# Win Delete API View
 class WinDeleteAPIView(generics.DestroyAPIView):
     queryset = models.Win.objects.all()
     serializer_class = serializers.WinSerializer
+
+
+# ************************************************************************************************ #
+
+# Message List API View
+class MessageListAPIView(generics.ListAPIView):
+    queryset = models.Message.objects.all()
+    serializer_class = serializers.MessageSerializer
+
+
+# Message Create API View
+class MessageCreateAPIView(generics.CreateAPIView):
+    queryset = models.Message.objects.all()
+    serializer_class = serializers.MessageSerializer
+
+
+# Message Detail API View
+class MessageDetailAPIView(generics.RetrieveAPIView):
+    queryset = models.Message.objects.all()
+    serializer_class = serializers.MessageSerializer
+
+
+# Message Delete API View
+class MessageDeleteAPIView(generics.DestroyAPIView):
+    queryset = models.Message.objects.all()
+    serializer_class = serializers.MessageSerializer
+
+
+# Message Update API View
+class MessageUpdateAPIView(generics.UpdateAPIView):
+    queryset = models.Message.objects.all()
+    serializer_class = serializers.MessageSerializer
 
 
 @api_view(['GET'])

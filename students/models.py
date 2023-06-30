@@ -136,6 +136,23 @@ class Message(models.Model):
         on_delete=models.CASCADE,
         related_name='messages'
     )
+    article = models.ForeignKey(
+        to=Article, 
+        on_delete=models.CASCADE,
+        related_name='message',
+        verbose_name='Maqola nomi',
+        blank=True, 
+        null=True
+    )
+    win = models.ForeignKey(
+        to=Win,
+        on_delete=models.CASCADE,
+        related_name='message',
+        verbose_name='Yutuq nomi',
+        blank=True,
+        null=True
+    )
+
     letter = models.TextField(verbose_name='Talaba uchun xat', max_length=3000)
     create_at = models.DateTimeField(auto_now_add=True)
 
