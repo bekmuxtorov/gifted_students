@@ -25,7 +25,7 @@ class StudentBaseSerializer(serializers.ModelSerializer):
 
 class StudentSerializer(serializers.ModelSerializer):
     faculty = FacultySerializer(read_only=True)
-    subfaculty = SubFacultySerializer(read_only=True)
+    sub_faculty = SubFacultySerializer(read_only=True)
 
     class Meta:
         model = models.Student
