@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="card mb-4">
+            <div id="results" class="col-lg-12 col-md-12 order-1">
+                <div style="display: flex; align-items: center;justify-content: space-between;">
+                    <div>
+                        <h5 class="card-header">{{grant.name}}</h5>
+                        <p class="text-muted ms-4 mb-0">E'lon qilingan {{grant.name}} haqida batafsil ma'lumot</p>
+                    </div>
+                    <div style="margin-right: 50px;">
+                        <a href="{% url 'students' grant_id=grant.id %}" class="btn btn-primary"
+                            style="color: #fff;">Talabalar</a>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td><strong>Nomi</strong></td>
+                                <td>{{grant.name}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td><strong>Umumiy ma'lumot</strong></td>
+                                <td>{{grant.description}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td><strong>Nizom</strong></td>
+                                <td><a href="{{grant.statute.url}}">{{grant.statute.name}}</a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">4</th>
+                                <td><strong>Boshlanish vaqti</strong></td>
+                                <td>{{grant.start_date}}</td>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">5</th>
+                                <td><strong>Tugash vaqti</strong></td>
+                                <td>{{grant.end_date}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">6</th>
+                                <td><strong>Holati</strong></td>
+                                <td>{{grant.status}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">7</th>
+                                <td><strong>1-fan</strong></td>
+                                <td>{{grant.first_science}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">8</th>
+                                <td><strong>2-fan</strong></td>
+                                <td>{{grant.second_science}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">9</th>
+                                <td><strong>3-fan</strong></td>
+                                <td>{{grant.third_science}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <a href="{% url 'delete_grant' pk=grant.id %}" style="display: block; width:20%;margin-left: 80%; margin-top: 20px;" href="#"
+                        class="btn btn-danger">O'chirish</a>
+                    <a href="{% url 'update_grant' pk=grant.id %}" style="display: block; width:20%;margin-left: 80%; margin-top: 20px;" href="#"
+                        class="btn btn-primary">Tahrirlash</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<!-- / Content -->
+
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+
+        </div>
+
+    </div>
+</footer>
+<!-- / Footer -->
+
+<div class="content-backdrop fade"></div>
+</div>
+
+{% endblock content %}

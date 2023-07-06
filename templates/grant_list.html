@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="card mb-4">
+            <div id="results" class="col-lg-12 col-md-12 order-1">
+                <div style="display: flex; align-items: center;justify-content: space-between;">
+                    <div>
+                        <h5 class="card-header">Grantlar jadvali</h5>
+                        <p class="text-muted ms-4 mb-0">E'lon qilingan umumiy grantlar</p>
+                    </div>
+                    <div style="margin-right: 50px;">
+                        <a class="btn btn-primary" href="{% url 'create_grant' %}" style="color: #fff;">Grant qo'shish</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nomi</th>
+                                <th>Boshlanish vaqti</th>
+                                <th>Tugash vaqti</th>
+                                <th>Topshirgan talaba soni</th>
+                                <th>Holati</th>
+                                <th>Batafsil</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Nomi</th>
+                                <th>Boshlanish vaqti</th>
+                                <th>Tugash vaqti</th>
+                                <th>Topshirgan talaba soni</th>
+                                <th>Holati</th>
+                                <th>Batafsil</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for grant in all_grants %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{grant.name.title}}</td>
+                                <td>{{grant.start_date}}</td>
+                                <td>{{grant.end_date}}</td>
+                                <td>{{grant.get_student_count}}</td>
+                                {% if grant.status %}
+                                <td>Faol</td>
+                                {% else %}
+                                <td>Nofaol</td>
+                                {% endif %}
+                                <td><a href="{% url 'grant_detail' pk=grant.pk %}">Ko'rish</a></td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<!-- / Content -->
+
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mb-2 mb-md-0">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+
+        </div>
+
+    </div>
+</footer>
+<!-- / Footer -->
+
+<div class="content-backdrop fade"></div>
+</div>
+
+{% endblock content %}
