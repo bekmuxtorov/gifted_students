@@ -63,13 +63,13 @@ class StudentListAPIView(generics.ListAPIView):
 # Student Detail API View
 class StudentDetailAPIView(generics.RetrieveAPIView):
     queryset = models.Student.objects.all()
-    serializer_class = serializers.StudentSerializer
+    serializer_class = serializers.StudentBaseSerializer
 
 
 # Student Update API View
 class StudentUpdateAPIView(generics.UpdateAPIView):
     queryset = models.Student.objects.all()
-    serializer_class = serializers.StudentSerializer
+    serializer_class = serializers.StudentBaseSerializer
 
 
 # ************************************************************************************************ #
@@ -217,5 +217,5 @@ def get_student_by_base(request, pk):
         student = models.Student.objects.get(base_student__id=pk)
     except:
         return Response({"detail": "The associated student object does not exist"}, status=status.HTTP_404_NOT_FOUND)
-    serializer = serializers.StudentSerializer(student)
+    serializer = serializers.StudentBaseSerializer(student)
     return Response(serializer.data, status=status.HTTP_200_OK)
