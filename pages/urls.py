@@ -20,4 +20,6 @@ urlpatterns = [
     path('students/by_grant/<int:grant_id>/', views.StudentListView, name='students'),
     path('students/<int:pk>/', views.StudentDetailView, name='student_detail'),
     path('faculties/', views.FacultyListView, name='faculties'),
+
+    path('messages/', views.list_create_message, name="messages_list"),
 ]

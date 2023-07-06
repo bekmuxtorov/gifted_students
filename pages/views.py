@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from students.forms import FacultyForm, SubFacultyForm
+from students.forms import FacultyForm, SubFacultyForm, MessageForm
 
 from students import models as student_moduls
 from grants import models as grants_models
@@ -242,3 +242,27 @@ def delete_subfaculty(request, pk):
     context["subfaculties"] = subfaculties
     context["action"] = "delete"
     return render(request, "subfaculty_form.html", context)
+
+
+def list_create_message(request):
+    form = MessageForm(request.POST or None)
+    if request.method == "POST":
+        form = MessageForm(data = request.POST)
+        if form.is_valid():
+            form.save()
+            obj = form.instance
+            print(obj)
+            return redirect('messages_list')
+
+    messages = student_moduls.Message.objects.all().order_by('-id')
+
+    students = student_moduls.Student.objects.all()
+    articles = student_moduls.Article.objects.all()
+
+    context = {
+        'form': form,
+        'messages': messages,
+        'students': students,
+        'articles': articles,
+    }
+    return render(request, 'messages.html', context)
