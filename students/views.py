@@ -50,13 +50,13 @@ class SubFacultyDetailAPIView(generics.RetrieveAPIView):
 # Student Create API View
 class StudentCreateAPIView(generics.CreateAPIView):
     queryset = models.Student.objects.all()
-    serializer_class = serializers.StudentSerializer
+    serializer_class = serializers.StudentBaseSerializer
 
 
 # Student List API View
 class StudentListAPIView(generics.ListAPIView):
     queryset = models.Student.objects.all()
-    serializer_class = serializers.StudentSerializer
+    serializer_class = serializers.StudentBaseSerializer
     search_fields = ('get_full_name',)
 
 
@@ -217,5 +217,5 @@ def get_student_by_base(request, pk):
         student = models.Student.objects.get(base_student__id=pk)
     except:
         return Response({"detail": "The associated student object does not exist"}, status=status.HTTP_404_NOT_FOUND)
-    serializer = serializers.StudentSerializer(student)
+    serializer = serializers.StudentBaseSerializer(student)
     return Response(serializer.data, status=status.HTTP_200_OK)

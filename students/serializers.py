@@ -17,12 +17,19 @@ class SubFacultySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class StudentSerializer(serializers.ModelSerializer):
+class StudentBaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Student
         fields = '__all__'
         
 
+class StudentSerializer(serializers.ModelSerializer):
+    faculty = FacultySerializer()
+    sub_faculty = SubFacultySerializer()
+
+    class Meta:
+        model = models.Student
+        fields = '__all__'
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
