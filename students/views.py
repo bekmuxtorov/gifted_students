@@ -217,5 +217,5 @@ def get_student_by_base(request, pk):
         student = models.Student.objects.get(base_student__id=pk)
     except:
         return Response({"detail": "The associated student object does not exist"}, status=status.HTTP_404_NOT_FOUND)
-    serializer = serializers.StudentBaseSerializer(student)
+    serializer = serializers.StudentSerializer(student)
     return Response(serializer.data, status=status.HTTP_200_OK)
