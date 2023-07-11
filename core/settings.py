@@ -159,10 +159,10 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = 'media/'
 
-# STORAGES = {"default": {
-#     "BACKEND": "storages.backends.gcloud.GoogleCloudStorage"},
-#     "staticfiles": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"}
-# }
+STORAGES = {"default": {
+    "BACKEND": "storages.backends.gcloud.GoogleCloudStorage"},
+    "staticfiles": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"}
+}
 
 
 # Default primary key field type
