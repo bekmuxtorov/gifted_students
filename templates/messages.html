@@ -65,7 +65,8 @@
                         <tbody>
                             {% for message in messages %}
                             <tr>
-                                <td>{{ message.counter }}</td>
+
+                                <td>{{ forloop.counter }}</td>
                                 <td><a href="/students/{{ message.student.id }}/">{{message.student.base_student}}</a>
                                 </td>
                                 <td>{% if message.article %} Maqola {% else %}Yutuq{% endif %}</td>

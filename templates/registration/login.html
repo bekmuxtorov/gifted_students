@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="card-body">
                                     {% if form.errors %}
-                                    <p class="alert alert-danger" role="alert">Username yoki parolda xatolik bor. Qayta
+                                    <p class="alert alert-danger" role="alert">Email yoki parolda xatolik bor. Qayta
                                         urinib ko'ring!</p>
                                     {% endif %}
                                     <form method="post">{% csrf_token %}
@@ -128,7 +128,7 @@
                                             <input class="form-control" type="text" name="username" autofocus
                                                 autocapitalize="none" autocomplete="off" maxlength="150" required
                                                 id="id_username" placeholder="Username" />
-                                            <label for="inputEmail">Username</label>
+                                            <label for="inputEmail">Email</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input class="form-control" type="password" name="password"
