@@ -80,6 +80,18 @@ class ArticleCreateAPIView(generics.CreateAPIView):
     queryset = models.Article.objects.all()
     serializer_class = serializers.ArticleSerializer
 
+    def post(self, request, *args, **kwargs):
+        serializer = serializers.ArticleSerializer(data=request.data)
+        if serializer.is_valid():
+            student = models.Student.objects.get(id=request.data.get('student'))
+            print(request.data.get('type'))
+            if request.data.get('type') == 'main':
+                count = models.Article.objects.filter(student=student, type='main').count()
+                print(count)
+                if count > 4:
+                    return Response({'error': 'Asosiy maqolalar 4 tadan oshib ketgan'}, status=status.HTTP_400_BAD_REQUEST)
+            return self.create(request, *args, **kwargs)
+
 
 # Article List API View
 class ArticleListAPIView(generics.ListAPIView):

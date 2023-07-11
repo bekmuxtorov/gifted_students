@@ -9,6 +9,11 @@ PRINTED = (
     ('foreign', 'Xalqaro jurnalda'),
 )
 
+TYPES = (
+    ('main', 'Asosiy maqola'),
+    ('addition', 'Qo\'shimcha maqola')
+)
+
 
 class Faculty(models.Model):
     name = models.CharField(max_length=100)
@@ -97,6 +102,7 @@ class Article(models.Model):
     )
     printed = models.CharField(
         max_length=7, choices=PRINTED, blank=True, null=True)
+    type = models.CharField(max_length=8, choices=TYPES, null=True, blank=True)
     name = models.CharField(verbose_name='Nomi', max_length=200)
     file = models.FileField(upload_to='media/students/articles')
     grade = models.IntegerField(verbose_name='Baho', default=0)
